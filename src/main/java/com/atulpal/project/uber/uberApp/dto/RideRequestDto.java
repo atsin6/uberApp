@@ -19,15 +19,12 @@ public class RideRequestDto {
 
     private Long id;
 
-    private Point pickUpLocation;
-
-    private Point dropOffLocation;
+    private PointDto pickUpLocation;
+    private PointDto dropOffLocation;
+    private PaymentMethod paymentMethod;
 
     private LocalDateTime requestedTime;
 
     private Rider rider;
-
-    private PaymentMethod paymentMethod;
-
     private RideRequestStatus rideRequestStatus;
 }

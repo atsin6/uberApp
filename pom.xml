@@ -55,12 +55,20 @@
 			<scope>test</scope>
 		</dependency>
 
+<!--		&lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-spatial &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.hibernate.orm</groupId>-->
+<!--			<artifactId>hibernate-spatial</artifactId>-->
+<!--			<version>6.6.0.Final</version>-->
+<!--		</dependency>-->
+
 		<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-spatial -->
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-spatial</artifactId>
-			<version>6.6.0.Final</version>
+			<version>6.6.1.Final</version>
 		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
 		<dependency>

@@ -20,6 +20,7 @@ public class WalletTransaction {
 
     private TransactionMethod transactionMethod;
 
+    @OneToOne
     private Ride ride;
 
     private String transactionId;

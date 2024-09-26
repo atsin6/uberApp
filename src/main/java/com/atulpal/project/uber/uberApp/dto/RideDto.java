@@ -1,15 +1,16 @@
 package com.atulpal.project.uber.uberApp.dto;
 
-import com.atulpal.project.uber.uberApp.entities.Driver;
-import com.atulpal.project.uber.uberApp.entities.Rider;
 import com.atulpal.project.uber.uberApp.entities.enums.PaymentMethod;
 import com.atulpal.project.uber.uberApp.entities.enums.RideStatus;
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Point;
-
 import java.time.LocalDateTime;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RideDto {
 
     private Long id;
@@ -24,6 +25,8 @@ public class RideDto {
 
     private PaymentMethod paymentMethod;
     private RideStatus rideStatus;
+
+    private String otp;
 
     private Double fare;
 
