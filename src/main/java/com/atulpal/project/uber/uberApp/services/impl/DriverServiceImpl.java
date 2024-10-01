@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service
 public class DriverServiceImpl implements DriverService {
+
+
     @Override
-    public RideDto acceptRide(Long rideId) {
+    public RideDto acceptRide(Long rideRequestId) {
+
+
         return null;
     }
 

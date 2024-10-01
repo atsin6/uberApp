@@ -13,6 +13,7 @@ import com.atulpal.project.uber.uberApp.services.RiderService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -31,13 +32,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public UserDto signUp(SignupDto signupDto) {
 
         User user = userRepository.findByEmail(signupDto.getEmail()).orElse(null);
         if(user!=null) {
             throw new RuntimeConflictException("User already exists"+signupDto.getEmail());
         }
-
 
         User mappedUser = modelMapper.map(signupDto, User.class);
         mappedUser.setRoles(Set.of(Role.RIDER));
