@@ -3,13 +3,13 @@ package com.atulpal.project.uber.uberApp.services.impl;
 import com.atulpal.project.uber.uberApp.dto.DriverDto;
 import com.atulpal.project.uber.uberApp.dto.SignupDto;
 import com.atulpal.project.uber.uberApp.dto.UserDto;
-import com.atulpal.project.uber.uberApp.entities.Rider;
 import com.atulpal.project.uber.uberApp.entities.User;
 import com.atulpal.project.uber.uberApp.entities.enums.Role;
 import com.atulpal.project.uber.uberApp.exceptions.RuntimeConflictException;
 import com.atulpal.project.uber.uberApp.repositories.UserRepository;
 import com.atulpal.project.uber.uberApp.services.AuthService;
 import com.atulpal.project.uber.uberApp.services.RiderService;
+import com.atulpal.project.uber.uberApp.services.WalletService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final RiderService riderService;
+    private final WalletService walletService;
 
     //Login Method Requires Spring Security
     @Override
@@ -48,6 +49,8 @@ public class AuthServiceImpl implements AuthService {
         riderService.createNewRider(savedUser);
 
 //TODO  ---------------Add wallet related service-------------------
+        walletService.createNewWallet(savedUser);
+        
 
         return modelMapper.map(savedUser, UserDto.class);
     }

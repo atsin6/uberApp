@@ -3,6 +3,9 @@ package com.atulpal.project.uber.uberApp.entities;
 import com.atulpal.project.uber.uberApp.entities.enums.PaymentMethod;
 import com.atulpal.project.uber.uberApp.entities.enums.RideStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.locationtech.jts.geom.Point;
 
@@ -10,6 +13,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Ride implements Serializable {
 
     @Id

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 //ST_Distance(point1, point2) - Used to calculate distance between 2 points
 //ST_DWithin(point1, point2, 10000) - Used to check if distance between 2 points is less than given distance
@@ -24,12 +25,11 @@ public interface DriverRepository extends JpaRepository<Driver, Long> {
 
     @Query(value = "SELECT d.* " +
             "FROM driver d " +
-            "WHERE d.available = true AND st_dwithin(d.current_location, :pickUpLocation, 15000) "+
+            "WHERE d.available = true AND st_dwithin(d.current_location, :pickUpLocation, 5000) "+
             "ORDER BY d.rating DESC "+
             "LIMIT 10 ", nativeQuery = true
     )
     List<Driver> findTenNearbyTopRatedDrivers(Point pickUpLocation);
-
 }
 
 

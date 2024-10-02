@@ -4,19 +4,23 @@ import com.atulpal.project.uber.uberApp.dto.DriverDto;
 import com.atulpal.project.uber.uberApp.dto.RideDto;
 import com.atulpal.project.uber.uberApp.dto.RideRequestDto;
 import com.atulpal.project.uber.uberApp.dto.RiderDto;
-import com.atulpal.project.uber.uberApp.entities.Driver;
-import com.atulpal.project.uber.uberApp.entities.RideRequest;
-import com.atulpal.project.uber.uberApp.entities.Rider;
-import com.atulpal.project.uber.uberApp.entities.User;
+import com.atulpal.project.uber.uberApp.entities.*;
 import com.atulpal.project.uber.uberApp.entities.enums.RideRequestStatus;
+import com.atulpal.project.uber.uberApp.entities.enums.RideStatus;
 import com.atulpal.project.uber.uberApp.exceptions.ResourceNotFoundException;
 import com.atulpal.project.uber.uberApp.repositories.RideRequestRepository;
 import com.atulpal.project.uber.uberApp.repositories.RiderRepository;
+import com.atulpal.project.uber.uberApp.services.DriverService;
+import com.atulpal.project.uber.uberApp.services.RideService;
 import com.atulpal.project.uber.uberApp.services.RiderService;
 import com.atulpal.project.uber.uberApp.strategies.RideStrategyManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,11 +35,15 @@ public class RiderServiceImpl implements RiderService {
     private final RideStrategyManager rideStrategyManager;
     private final RideRequestRepository rideRequestRepository;
     private final RiderRepository riderRepository;
+    private final RideService rideService;
+    private final DriverService driverService;
+    private final PageableHandlerMethodArgumentResolver pageableResolver;
 
     @Override
     @Transactional
     public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
         Rider rider = getCurrentRider();
+
         RideRequest rideRequest = modelMapper.map(rideRequestDto, RideRequest.class);
         rideRequest.setRideRequestStatus(RideRequestStatus.PENDING);
         rideRequest.setRider(rider);
@@ -54,7 +62,30 @@ public class RiderServiceImpl implements RiderService {
 
     @Override
     public RideDto cancelRide(Long rideId) {
-        return null;
+
+        Rider rider = getCurrentRider();  // getCurrentRider() is currently hardcoded I will change it later
+        Ride ride = rideService.getRideById(rideId);
+
+        //checking if the rider has belongs to this ride or not
+        if(!rider.equals(ride.getRider())) {
+            throw new RuntimeException("Rider does not belong to this ride");
+        }
+
+        // checking if ride status is confirmed or not
+        // because Rider is only able to cancel the ride only if the ride is confirmed
+        if(!ride.getRideStatus().equals(RideStatus.CONFIRMED)){
+            throw new RuntimeException("Ride is not confirmed yet. Ride Status: " + ride.getRideStatus());
+        }
+
+        //updating the ride status to cancelled
+        Ride savedRide = rideService.updateRideStatus(ride, RideStatus.CANCELLED);
+
+        //updating the driver availability from Not-Available to available
+        driverService.updateDriverAvailability(ride.getDriver(), true);
+
+        //mapping the updated Ride to RideDto
+        return modelMapper.map(savedRide, RideDto.class);
+
     }
 
     @Override
@@ -64,12 +95,20 @@ public class RiderServiceImpl implements RiderService {
 
     @Override
     public RiderDto getMyProfile() {
-        return null;
+        //get Current Rider and map it to RiderDto
+        Rider rider = getCurrentRider();
+        return modelMapper.map(rider, RiderDto.class);
     }
 
     @Override
-    public List<RideDto> getAllMyRides() {
-        return null;
+    public Page<RideDto> getAllMyRides(Pageable pageable) {
+        // getting current Rider
+        Rider rider = getCurrentRider();
+
+        //getting all the rides of this rider
+        return rideService.getAllRidesOfRider(rider, pageable).map(
+                ride -> modelMapper.map(ride, RideDto.class)
+        );
     }
 
     @Override
@@ -84,7 +123,7 @@ public class RiderServiceImpl implements RiderService {
     @Override
     public Rider getCurrentRider() {
         //TODO: implement Spring Security
-        return riderRepository.findById(4L).orElseThrow(() ->
-                new ResourceNotFoundException("Rider not found with id: "+4));
+        return riderRepository.findById(1L).orElseThrow(() ->
+                new ResourceNotFoundException("Rider not found with id: "+1));
     }
 }

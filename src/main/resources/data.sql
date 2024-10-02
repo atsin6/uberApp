@@ -42,7 +42,6 @@ INSERT INTO app_user (name, email, password) VALUES
 
 
 INSERT INTO user_roles (user_id, roles) VALUES
-('1', 'DRIVER'),
 ('1', 'RIDER'),
 ('2', 'RIDER'),
 ('3', 'DRIVER'),
@@ -121,35 +120,60 @@ INSERT INTO rider (id, user_id, rating) VALUES
                                             (29, 29, 5.0);
 
 INSERT INTO driver (id, user_id, rating, available, current_location, vehicle_id) VALUES
-                                                                                      (1, 1, 4.5, true, ST_GeomFromText('POINT(77.2090 28.6139)'), 101),  -- Connaught Place
-                                                                                      (2, 2, 3.9, false, ST_GeomFromText('POINT(77.2275 28.6192)'), 102),  -- Chandni Chowk
-                                                                                      (3, 3, 4.2, true, ST_GeomFromText('POINT(77.2288 28.6692)'), 103),  -- Greater Kailash
-                                                                                      (4, 4, 4.8, true, ST_GeomFromText('POINT(77.2290 28.6129)'), 104),  -- India Gate
-                                                                                      (5, 5, 5.0, true, ST_GeomFromText('POINT(77.1945 28.6139)'), 105),  -- Red Fort
-                                                                                      (6, 6, 2.5, false, ST_GeomFromText('POINT(77.2167 28.6019)'), 106),  -- Qutub Minar
-                                                                                      (7, 7, 4.1, true, ST_GeomFromText('POINT(77.2110 28.6472)'), 107),  -- Hauz Khas
-                                                                                      (8, 8, 3.7, true, ST_GeomFromText('POINT(77.2410 28.6133)'), 108),  -- Paharganj
-                                                                                      (9, 9, 4.9, false, ST_GeomFromText('POINT(77.1680 28.6560)'), 109),  -- Punjabi Bagh
-                                                                                      (10, 10, 4.3, true, ST_GeomFromText('POINT(77.1033 28.5355)'), 110),  -- Dwarka
-                                                                                      (11, 11, 3.2, true, ST_GeomFromText('POINT(77.1152 28.5150)'), 111),  -- Rohini
-                                                                                      (12, 12, 5.0, true, ST_GeomFromText('POINT(77.1602 28.5798)'), 112),  -- Anand Vihar
-                                                                                      (13, 13, 2.8, false, ST_GeomFromText('POINT(77.2765 28.5700)'), 113),  -- Laxmi Nagar
-                                                                                      (14, 14, 4.6, true, ST_GeomFromText('POINT(77.2379 28.6500)'), 114),  -- Saket
-                                                                                      (15, 15, 3.9, true, ST_GeomFromText('POINT(77.2210 28.5904)'), 115),  -- Delhi Airport
-                                                                                      (16, 16, 4.7, true, ST_GeomFromText('POINT(77.1931 28.5649)'), 116),  -- Janakpuri
-                                                                                      (17, 17, 4.0, false, ST_GeomFromText('POINT(77.0634 28.5383)'), 117),  -- Kashmere Gate
-                                                                                      (18, 18, 3.4, true, ST_GeomFromText('POINT(77.1932 28.6109)'), 118),  -- Connaught Place
-                                                                                      (19, 19, 5.0, true, ST_GeomFromText('POINT(77.2440 28.7041)'), 119),  -- Noida Border
-                                                                                      (20, 20, 4.2, false, ST_GeomFromText('POINT(77.2055 28.6452)'), 120),  -- Connaught Place
-                                                                                      (21, 21, 2.9, true, ST_GeomFromText('POINT(77.2174 28.5971)'), 121),  -- Saket
-                                                                                      (22, 22, 5.0, true, ST_GeomFromText('POINT(77.1861 28.6732)'), 122),  -- Lajpat Nagar
-                                                                                      (23, 23, 4.5, false, ST_GeomFromText('POINT(77.1384 28.5283)'), 123),  -- Narela
-                                                                                      (24, 24, 3.8, true, ST_GeomFromText('POINT(77.0930 28.6080)'), 124),  -- Shakurpur
-                                                                                      (25, 25, 4.9, true, ST_GeomFromText('POINT(77.0435 28.5009)'), 125),  -- Burari
-                                                                                      (26, 26, 2.6, false, ST_GeomFromText('POINT(77.1374 28.7035)'), 126),  -- Najafgarh
-                                                                                      (27, 27, 4.4, true, ST_GeomFromText('POINT(77.2122 28.5563)'), 127),  -- Vishwas Nagar
-                                                                                      (28, 28, 3.1, true, ST_GeomFromText('POINT(77.0956 28.6983)'), 128),  -- Inderlok
-                                                                                      (29, 29, 5.0, true, ST_GeomFromText('POINT(77.2218 28.5764)'), 129),  -- Patel Nagar
-                                                                                      (30, 30, 4.3, false, ST_GeomFromText('POINT(77.2105 28.5423)'), 130);  -- Ashok Vihar
+                                                                                      (1, 3, 4.2, true, ST_GeomFromText('POINT(77.2177 28.6448)'), 103),  -- Vikash Verma
+                                                                                      (2, 5, 4.8, true, ST_GeomFromText('POINT(77.2203 28.6353)'), 104),  -- Ankit Gupta
+                                                                                      (3, 7, 4.6, false, ST_GeomFromText('POINT(77.2045 28.6293)'), 105),  -- Rajesh Iyer
+                                                                                      (4, 9, 4.1, true, ST_GeomFromText('POINT(77.2219 28.6617)'), 106),  -- Manish Jain
+                                                                                      (5, 11, 4.5, true, ST_GeomFromText('POINT(77.2352 28.5987)'), 107),  -- Harshita Rao
+                                                                                      (6, 13, 4.3, true, ST_GeomFromText('POINT(77.1987 28.6732)'), 108),  -- Kavita Deshmukh
+                                                                                      (7, 15, 4.9, false, ST_GeomFromText('POINT(77.2102 28.6145)'), 109),  -- Deepak Yadav
+                                                                                      (8, 17, 4.7, true, ST_GeomFromText('POINT(77.1832 28.6131)'), 110),  -- Sanjana Khanna
+                                                                                      (9, 19, 4.8, true, ST_GeomFromText('POINT(77.2314 28.6211)'), 111),  -- Gaurav Mishra
+                                                                                      (10, 21, 3.9, false, ST_GeomFromText('POINT(77.2094 28.6480)'), 112), -- Tarun Aggarwal
+                                                                                      (11, 23, 4.6, true, ST_GeomFromText('POINT(77.2025 28.6068)'), 113),  -- Simran Das
+                                                                                      (12, 25, 4.4, true, ST_GeomFromText('POINT(77.2133 28.6132)'), 114),  -- Vineet Rao
+                                                                                      (13, 27, 4.7, false, ST_GeomFromText('POINT(77.2141 28.6075)'), 115),  -- Sandeep Bhatia
+                                                                                      (14, 29, 5.0, true, ST_GeomFromText('POINT(77.2295 28.6503)'), 116);  -- Ajay Pillai
 
 
+INSERT INTO wallet (id, user_id, balance) VALUES
+                                               (1, 1, 500.00),
+                                               (2, 2, 750.00),
+                                               (3, 3, 620.00),
+                                               (4, 4, 830.00),
+                                               (5, 5, 460.00),
+                                               (6, 6, 540.00),
+                                               (7, 7, 910.00),
+                                               (8, 8, 320.00),
+                                               (9, 9, 700.00),
+                                               (10, 10, 150.00),
+                                               (11, 11, 990.00),
+                                               (12, 12, 200.00),
+                                               (13, 13, 730.00),
+                                               (14, 14, 660.00),
+                                               (15, 15, 810.00),
+                                               (16, 16, 520.00),
+                                               (17, 17, 400.00),
+                                               (18, 18, 750.00),
+                                               (19, 19, 890.00),
+                                               (20, 20, 920.00),
+                                               (21, 21, 570.00),
+                                               (22, 22, 410.00),
+                                               (23, 23, 800.00),
+                                               (24, 24, 350.00),
+                                               (25, 25, 490.00),
+                                               (26, 26, 940.00),
+                                               (27, 27, 380.00),
+                                               (28, 28, 920.00),
+                                               (29, 29, 410.00),
+                                               (30, 30, 760.00),
+                                               (31, 31, 500.00),
+                                               (32, 32, 620.00),
+                                               (33, 33, 980.00),
+                                               (34, 34, 870.00),
+                                               (35, 35, 550.00),
+                                               (36, 36, 620.00),
+                                               (37, 37, 430.00),
+                                               (38, 38, 810.00),
+                                               (39, 39, 490.00),
+                                               (40, 40, 350.00);
