@@ -21,6 +21,8 @@ public interface RiderService {
     RiderDto getMyProfile();
     Page<RideDto> getAllMyRides(Pageable pageRequest);
 
+
+    //Internal Methods
     Rider createNewRider(User user);
 
     Rider  getCurrentRider();

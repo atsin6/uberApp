@@ -11,10 +11,7 @@ import com.atulpal.project.uber.uberApp.entities.enums.RideRequestStatus;
 import com.atulpal.project.uber.uberApp.entities.enums.RideStatus;
 import com.atulpal.project.uber.uberApp.exceptions.ResourceNotFoundException;
 import com.atulpal.project.uber.uberApp.repositories.DriverRepository;
-import com.atulpal.project.uber.uberApp.services.DriverService;
-import com.atulpal.project.uber.uberApp.services.PaymentService;
-import com.atulpal.project.uber.uberApp.services.RideRequestService;
-import com.atulpal.project.uber.uberApp.services.RideService;
+import com.atulpal.project.uber.uberApp.services.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -33,6 +30,7 @@ public class DriverServiceImpl implements DriverService {
     private final RideService rideService;
     private final ModelMapper modelMapper;
     private final PaymentService paymentService;
+    private final RatingService ratingService;
 
     @Override
     @Transactional
@@ -122,6 +120,7 @@ public class DriverServiceImpl implements DriverService {
         Ride savedRide = rideService.updateRideStatus(ride, RideStatus.ONGOING);
 
         paymentService.creatNewPayment(savedRide);
+        ratingService.createNewRating(savedRide);
 
         return modelMapper.map(savedRide, RideDto.class);
     }
@@ -139,8 +138,8 @@ public class DriverServiceImpl implements DriverService {
         }
 
         //Checking if RideStatus is ongoing or not because
-        //Driver only able to start the ride when it is confirmed
-        //If it is not confirmed then throws an exception
+        //Driver only able to end the ride when it is ongoing
+        //If it is not ongoing then throws an exception
         if(!ride.getRideStatus().equals(RideStatus.ONGOING)){
             throw new RuntimeException("Ride status is not ONGOING hence cannot be ended, status: "+ride.getRideStatus());
 
@@ -164,7 +163,21 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public RiderDto rateRider(Long rideId, Integer rating) {
-        return null;
+        Ride ride = rideService.getRideById(rideId);
+        Driver driver = getCurrentDriver();
+
+        //Checking if driver belongs to this ride or not
+        if(!driver.equals(ride.getDriver())) {
+            throw new RuntimeException("Driver does not belong to this ride");
+        }
+        //Checking if RideStatus is ENDED or not because
+        //Driver and Rider only able to rate the ride when it is ENDED
+        //If it is not ENDED then throw an exception
+        if(!ride.getRideStatus().equals(RideStatus.ENDED)){
+            throw new RuntimeException("Ride status is not ENDED hence cannot rate, status: "+ride.getRideStatus());
+        }
+
+        return ratingService.rateRider(ride, rating);
     }
 
     @Override
@@ -190,6 +203,11 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public Driver updateDriverAvailability(Driver driver, boolean available) {
         driver.setAvailable(available);
+        return driverRepository.save(driver);
+    }
+
+    @Override
+    public Driver createNewDriver(Driver driver) {
         return driverRepository.save(driver);
     }
 

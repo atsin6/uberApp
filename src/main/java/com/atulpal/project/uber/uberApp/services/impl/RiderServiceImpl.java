@@ -11,6 +11,7 @@ import com.atulpal.project.uber.uberApp.exceptions.ResourceNotFoundException;
 import com.atulpal.project.uber.uberApp.repositories.RideRequestRepository;
 import com.atulpal.project.uber.uberApp.repositories.RiderRepository;
 import com.atulpal.project.uber.uberApp.services.DriverService;
+import com.atulpal.project.uber.uberApp.services.RatingService;
 import com.atulpal.project.uber.uberApp.services.RideService;
 import com.atulpal.project.uber.uberApp.services.RiderService;
 import com.atulpal.project.uber.uberApp.strategies.RideStrategyManager;
@@ -18,9 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +36,8 @@ public class RiderServiceImpl implements RiderService {
     private final RiderRepository riderRepository;
     private final RideService rideService;
     private final DriverService driverService;
-    private final PageableHandlerMethodArgumentResolver pageableResolver;
+//    private final PageableHandlerMethodArgumentResolver pageableResolver;
+    private final RatingService ratingService;
 
     @Override
     @Transactional
@@ -90,7 +90,21 @@ public class RiderServiceImpl implements RiderService {
 
     @Override
     public DriverDto rateDriver(Long rideId, Integer rating) {
-        return null;
+        Ride ride = rideService.getRideById(rideId);
+        Rider rider = getCurrentRider();
+
+        //Checking if driver belongs to this ride or not
+        if(!rider.equals(ride.getDriver())) {
+            throw new RuntimeException("Rider does not belong to this ride");
+        }
+        //Checking if RideStatus is ENDED or not because
+        //Driver and Rider only able to rate the ride when it is ENDED
+        //If it is not ENDED then throw an exception
+        if(!ride.getRideStatus().equals(RideStatus.ENDED)){
+            throw new RuntimeException("Ride status is not ENDED hence cannot rate, status: "+ride.getRideStatus());
+        }
+
+        return ratingService.rateDriver(ride, rating);
     }
 
     @Override
