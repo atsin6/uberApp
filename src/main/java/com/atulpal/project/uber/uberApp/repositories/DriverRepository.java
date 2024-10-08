@@ -1,6 +1,7 @@
 package com.atulpal.project.uber.uberApp.repositories;
 
 import com.atulpal.project.uber.uberApp.entities.Driver;
+import com.atulpal.project.uber.uberApp.entities.User;
 import org.locationtech.jts.geom.Point;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,6 +31,8 @@ public interface DriverRepository extends JpaRepository<Driver, Long> {
             "LIMIT 10 ", nativeQuery = true
     )
     List<Driver> findTenNearbyTopRatedDrivers(Point pickUpLocation);
+
+    Optional<Driver> findByUser(User user);
 }
 
 

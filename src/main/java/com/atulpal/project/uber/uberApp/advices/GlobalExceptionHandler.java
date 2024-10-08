@@ -2,12 +2,15 @@ package com.atulpal.project.uber.uberApp.advices;
 
 import com.atulpal.project.uber.uberApp.exceptions.ResourceNotFoundException;
 import com.atulpal.project.uber.uberApp.exceptions.RuntimeConflictException;
+import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +32,35 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.CONFLICT)
                 .message(exception.getMessage())
                 .build();
+        return buildErrorResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiResponse<?>> handleAuthenticationException(AuthenticationException exception) {
+        ApiError apiError = ApiError.builder()
+                .message(exception.getLocalizedMessage())
+                .status(HttpStatus.UNAUTHORIZED)
+                .build();
+
+        return buildErrorResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<ApiResponse<?>> handleJwtException(JwtException exception) {
+        ApiError apiError = ApiError.builder()
+                .message(exception.getLocalizedMessage())
+                .status(HttpStatus.UNAUTHORIZED)
+                .build();
+        return buildErrorResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiResponse<?>> handleAccessDeniedException(AccessDeniedException exception) {
+        ApiError apiError = ApiError.builder()
+                .status(HttpStatus.FORBIDDEN)
+                .message(exception.getLocalizedMessage())
+                .build();
+
         return buildErrorResponseEntity(apiError);
     }
 

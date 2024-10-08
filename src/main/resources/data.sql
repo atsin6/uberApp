@@ -88,92 +88,56 @@ INSERT INTO user_roles (user_id, roles) VALUES
 ('30', 'RIDER');
 
 
-INSERT INTO rider (id, user_id, rating) VALUES
-                                            (1, 1, 4.5),
-                                            (2, 2, 3.9),
-                                            (3, 3, 4.2),
-                                            (4, 4, 4.8),
-                                            (5, 5, 5.0),
-                                            (6, 6, 2.5),
-                                            (7, 7, 4.1),
-                                            (8, 8, 3.7),
-                                            (9, 9, 4.9),
-                                            (10, 10, 4.3),
-                                            (11, 11, 3.2),
-                                            (12, 12, 5.0),
-                                            (13, 13, 2.8),
-                                            (14, 14, 4.6),
-                                            (15, 15, 3.9),
-                                            (16, 16, 4.7),
-                                            (17, 17, 4.0),
-                                            (18, 18, 3.4),
-                                            (19, 19, 5.0),
-                                            (20, 20, 4.2),
-                                            (21, 21, 2.9),
-                                            (22, 22, 5.0),
-                                            (23, 23, 4.5),
-                                            (24, 24, 3.8),
-                                            (25, 25, 4.9),
-                                            (26, 26, 2.6),
-                                            (27, 27, 4.4),
-                                            (28, 28, 3.1),
-                                            (29, 29, 5.0);
+INSERT INTO rider (user_id, rating) VALUES
+                                            (1, 4.5),
+                                            (2, 3.9),
+                                            (3, 4.2),
+                                            (4, 4.8),
+                                            (5, 5.0),
+                                            (6, 2.5),
+                                            (7, 4.1),
+                                            (8, 3.7),
+                                            (9, 4.9),
+                                            ( 10, 4.3),
+                                            ( 11, 3.2),
+                                            ( 12, 5.0),
+                                            ( 13, 2.8),
+                                            ( 14, 4.6),
+                                            ( 15, 3.9),
+                                            ( 16, 4.7),
+                                            ( 17, 4.0),
+                                            ( 18, 3.4),
+                                            ( 19, 5.0),
+                                            ( 20, 4.2),
+                                            ( 21, 2.9),
+                                            ( 22, 5.0),
+                                            ( 23, 4.5),
+                                            ( 24, 3.8),
+                                            ( 25, 4.9),
+                                            ( 26, 2.6),
+                                            ( 27, 4.4),
+                                            ( 28, 3.1),
+                                            ( 29, 5.0);
 
-INSERT INTO driver (id, user_id, rating, available, current_location, vehicle_id) VALUES
-                                                                                      (1, 3, 4.2, true, ST_GeomFromText('POINT(77.2177 28.6448)'), 103),  -- Vikash Verma
-                                                                                      (2, 5, 4.8, true, ST_GeomFromText('POINT(77.2203 28.6353)'), 104),  -- Ankit Gupta
-                                                                                      (3, 7, 4.6, false, ST_GeomFromText('POINT(77.2045 28.6293)'), 105),  -- Rajesh Iyer
-                                                                                      (4, 9, 4.1, true, ST_GeomFromText('POINT(77.2219 28.6617)'), 106),  -- Manish Jain
-                                                                                      (5, 11, 4.5, true, ST_GeomFromText('POINT(77.2352 28.5987)'), 107),  -- Harshita Rao
-                                                                                      (6, 13, 4.3, true, ST_GeomFromText('POINT(77.1987 28.6732)'), 108),  -- Kavita Deshmukh
-                                                                                      (7, 15, 4.9, false, ST_GeomFromText('POINT(77.2102 28.6145)'), 109),  -- Deepak Yadav
-                                                                                      (8, 17, 4.7, true, ST_GeomFromText('POINT(77.1832 28.6131)'), 110),  -- Sanjana Khanna
-                                                                                      (9, 19, 4.8, true, ST_GeomFromText('POINT(77.2314 28.6211)'), 111),  -- Gaurav Mishra
-                                                                                      (10, 21, 3.9, false, ST_GeomFromText('POINT(77.2094 28.6480)'), 112), -- Tarun Aggarwal
-                                                                                      (11, 23, 4.6, true, ST_GeomFromText('POINT(77.2025 28.6068)'), 113),  -- Simran Das
-                                                                                      (12, 25, 4.4, true, ST_GeomFromText('POINT(77.2133 28.6132)'), 114),  -- Vineet Rao
-                                                                                      (13, 27, 4.7, false, ST_GeomFromText('POINT(77.2141 28.6075)'), 115),  -- Sandeep Bhatia
-                                                                                      (14, 29, 5.0, true, ST_GeomFromText('POINT(77.2295 28.6503)'), 116);  -- Ajay Pillai
+INSERT INTO driver (user_id, rating, available, current_location, vehicle_id) VALUES
+                                                                                      (3, 4.2, true, ST_GeomFromText('POINT(77.2177 28.6448)'), 103),  -- Vikash Verma
+                                                                                      (5, 4.8, true, ST_GeomFromText('POINT(77.2203 28.6353)'), 104),  -- Ankit Gupta
+                                                                                      (7, 4.6, false, ST_GeomFromText('POINT(77.2045 28.6293)'), 105),  -- Rajesh Iyer
+                                                                                      (9, 4.1, true, ST_GeomFromText('POINT(77.2219 28.6617)'), 106),  -- Manish Jain
+                                                                                      (11, 4.5, true, ST_GeomFromText('POINT(77.2352 28.5987)'), 107),  -- Harshita Rao
+                                                                                      (13, 4.3, true, ST_GeomFromText('POINT(77.1987 28.6732)'), 108),  -- Kavita Deshmukh
+                                                                                      (15, 4.9, false, ST_GeomFromText('POINT(77.2102 28.6145)'), 109),  -- Deepak Yadav
+                                                                                      (17, 4.7, true, ST_GeomFromText('POINT(77.1832 28.6131)'), 110),  -- Sanjana Khanna
+                                                                                      (19, 4.8, true, ST_GeomFromText('POINT(77.2314 28.6211)'), 111),  -- Gaurav Mishra
+                                                                                      (21, 3.9, false, ST_GeomFromText('POINT(77.2094 28.6480)'), 112), -- Tarun Aggarwal
+                                                                                      (23, 4.6, true, ST_GeomFromText('POINT(77.2025 28.6068)'), 113),  -- Simran Das
+                                                                                      (25, 4.4, true, ST_GeomFromText('POINT(77.2133 28.6132)'), 114),  -- Vineet Rao
+                                                                                      (27, 4.7, false, ST_GeomFromText('POINT(77.2141 28.6075)'), 115),  -- Sandeep Bhatia
+                                                                                      (29, 5.0, true, ST_GeomFromText('POINT(77.2295 28.6503)'), 116);  -- Ajay Pillai
 
 
-INSERT INTO wallet (id, user_id, balance) VALUES
-                                               (1, 1, 500.00),
-                                               (2, 2, 750.00),
-                                               (3, 3, 620.00),
-                                               (4, 4, 830.00),
-                                               (5, 5, 460.00),
-                                               (6, 6, 540.00),
-                                               (7, 7, 910.00),
-                                               (8, 8, 320.00),
-                                               (9, 9, 700.00),
-                                               (10, 10, 150.00),
-                                               (11, 11, 990.00),
-                                               (12, 12, 200.00),
-                                               (13, 13, 730.00),
-                                               (14, 14, 660.00),
-                                               (15, 15, 810.00),
-                                               (16, 16, 520.00),
-                                               (17, 17, 400.00),
-                                               (18, 18, 750.00),
-                                               (19, 19, 890.00),
-                                               (20, 20, 920.00),
-                                               (21, 21, 570.00),
-                                               (22, 22, 410.00),
-                                               (23, 23, 800.00),
-                                               (24, 24, 350.00),
-                                               (25, 25, 490.00),
-                                               (26, 26, 940.00),
-                                               (27, 27, 380.00),
-                                               (28, 28, 920.00),
-                                               (29, 29, 410.00),
-                                               (30, 30, 760.00),
-                                               (31, 31, 500.00),
-                                               (32, 32, 620.00),
-                                               (33, 33, 980.00),
-                                               (34, 34, 870.00),
-                                               (35, 35, 550.00),
-                                               (36, 36, 620.00),
-                                               (37, 37, 430.00),
-                                               (38, 38, 810.00),
-                                               (39, 39, 490.00),
-                                               (40, 40, 350.00);
+INSERT INTO wallet (user_id, balance) VALUES
+                                               (1, 500.00),
+                                               (2, 750.00),
+                                               (3, 620.00);
+
