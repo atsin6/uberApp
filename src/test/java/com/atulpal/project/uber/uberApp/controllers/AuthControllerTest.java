@@ -64,18 +64,18 @@ class AuthControllerTest {
 
 //    @Test
 //    @WithUserDetails()
-    void onBoardNewDriver() {
-        if(!userRepository.existsById(1L)) {
-            userRepository.save(user);
-        }
-
-        OnboardDriverDto onboardDriverDto = new OnboardDriverDto();
-        onboardDriverDto.setVehicleId("UP21HASS");
-
-        webTestClient.post()
-                .uri("/auth/onboardDriver/{}", onboardDriverDto.getVehicleId())
-                .bodyValue(onboardDriverDto)
-                .exchange()
-                .expectStatus().isCreated();
-    }
+//    void onBoardNewDriver() {
+//        if(!userRepository.existsById(1L)) {
+//            userRepository.save(user);
+//        }
+//
+//        OnboardDriverDto onboardDriverDto = new OnboardDriverDto();
+//        onboardDriverDto.setVehicleId("UP21HASS");
+//
+//        webTestClient.post()
+//                .uri("/auth/onboardDriver/{}", onboardDriverDto.getVehicleId())
+//                .bodyValue(onboardDriverDto)
+//                .exchange()
+//                .expectStatus().isCreated();
+//    }
 }
