@@ -69,10 +69,7 @@ public class AuthServiceImpl implements AuthService {
 
         ///Creating user related entities
         riderService.createNewRider(savedUser);
-
-//TODO  ---------------Add wallet related service-------------------
         walletService.createNewWallet(savedUser);
-        
 
         return modelMapper.map(savedUser, UserDto.class);
     }
